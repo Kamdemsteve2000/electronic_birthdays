@@ -42,13 +42,13 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
     if (!response) return;
 
     const shareText = response.attending
-      ? `🎉 I'm attending the birthday party! Can't wait to celebrate!`
-      : `Unfortunately, I won't be able to attend the birthday party, but I'm sending my best wishes! 🎂`;
+      ? `🎉 Je vais à la fête d'anniversaire ! J'ai hâte de faire la fête !`
+      : `Malheureusement, je ne pourrai pas assister à la fête d'anniversaire, mais j'envoie mes meilleurs vœux ! 🎂`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Birthday Party RSVP',
+          title: 'Confirmation de Présence Fête d\'Anniversaire',
           text: shareText,
         });
       } catch (error) {
@@ -84,13 +84,13 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
           </div>
           
           <h2 className="text-2xl font-bold mb-2">
-            {response.attending ? 'See You There!' : 'We\'ll Miss You!'}
+            {response.attending ? 'À Bientôt!' : 'Vous Nous Manquerez!'}
           </h2>
           
           <p className="opacity-90">
-            {response.attending 
-              ? 'Your attendance has been confirmed'
-              : 'Thanks for letting us know'
+            {response.attending
+              ? 'Votre présence a été confirmée'
+              : 'Merci de nous avoir informés'
             }
           </p>
         </div>
@@ -108,9 +108,9 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
               <div>
                 <p className="font-semibold text-gray-800">{response.name}</p>
                 <p className="text-sm text-gray-600">
-                  {response.attending 
-                    ? `Attending with ${response.numberOfGuests} guest${response.numberOfGuests > 1 ? 's' : ''}`
-                    : 'Unable to attend'
+                  {response.attending
+                    ? `Présent(e) avec ${response.numberOfGuests} invité${response.numberOfGuests > 1 ? 's' : ''}`
+                    : 'Absent'
                   }
                 </p>
               </div>
@@ -135,7 +135,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
               </div>
               <div className="space-y-2">
                 <p className="text-sm text-gray-600">
-                  Show this QR code at the event for quick check-in
+                  Présentez ce code QR lors de l'événement pour un enregistrement rapide.
                 </p>
                 <div className="flex justify-center space-x-3">
                   <button
@@ -143,15 +143,15 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
                     className="flex items-center space-x-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Download</span>
+                    <span>Télécharger</span>
                   </button>
-                  <button
+                  {/* <button
                     onClick={shareResponse}
                     className="flex items-center space-x-2 px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition-colors"
                   >
                     <Share2 className="w-4 h-4" />
-                    <span>Share</span>
-                  </button>
+                    <span>Partager</span>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -162,20 +162,20 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
             <div className="text-center space-y-4">
               <div className="bg-pink-50 p-6 rounded-xl">
                 <p className="text-gray-700 mb-4">
-                  We're sorry you can't make it to the celebration, but we understand! 
-                  Your thoughtful response means a lot.
+                  Nous sommes désolés que vous ne puissiez pas assister à la célébration, mais nous comprenons !
+                  Votre réponse réfléchie signifie beaucoup.
                 </p>
                 <p className="text-sm text-gray-600">
-                  We'll be sure to share some photos and memories from the party with you! 📸
+                  Nous ne manquerons pas de partager avec vous quelques photos et souvenirs de la fête ! 📸
                 </p>
               </div>
-              <button
-                onClick={shareResponse}
+              {/* <button
+                // onClick={shareResponse}
                 className="flex items-center space-x-2 mx-auto px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
               >
                 <Share2 className="w-4 h-4" />
-                <span>Send Birthday Wishes</span>
-              </button>
+                <span>Envoyer des vœux d'anniversaire</span>
+              </button> */}
             </div>
           )}
 
@@ -185,13 +185,13 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
               <div className="flex items-start space-x-3">
                 <Calendar className="w-5 h-5 text-purple-600 mt-0.5" />
                 <div>
-                  <p className="font-medium text-purple-800 mb-1">Important Reminders:</p>
+                  <p className="font-medium text-purple-800 mb-1">Rappels Importants :</p>
                   <ul className="text-sm text-purple-700 space-y-1">
-                    <li>• Please arrive on time</li>
-                    <li>• Bring your QR code for check-in</li>
-                    <li>• Contact the host if plans change</li>
+                    <li>• Merci d'arriver à l'heure</li>
+                    <li>• Apportez votre code QR pour l'enregistrement</li>
+                    <li>• Contactez l'hôte si vos plans changent</li>
                     {response.dietaryRestrictions && (
-                      <li>• Your dietary requirements have been noted</li>
+                      <li>• Vos exigences alimentaires ont été notées</li>
                     )}
                   </ul>
                 </div>
@@ -204,7 +204,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ response, 
             onClick={onClose}
             className="w-full bg-gray-100 text-gray-700 py-3 rounded-xl font-medium hover:bg-gray-200 transition-colors"
           >
-            Close
+           Fermer
           </button>
         </div>
       </div>

@@ -1,26 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Calendar, MapPin, Clock, Users, Phone, Mail, Gift, Sparkles } from 'lucide-react';
 import { InvitationCard } from './components/InvitationCard';
 import { RSVPForm } from './components/RSVPForm';
 import { ConfirmationModal } from './components/ConfirmationModal';
 import { AdminDashboard } from './components/AdminDashboard';
+import { QRScanner } from './components/QrScanner';
 import { invitationDetails } from './data/invitationData';
-import { RSVPResponse } from './types/invitation';
+import { GuestResponse } from './types/invitation';
 import { RSVPService } from './services/rsvpService';
+
+interface RSVPFormData {
+  name: string;
+  email: string;
+  phone: string;
+  attending: boolean;
+  numberOfGuests: number;
+  dietaryRestrictions: string;
+  message: string;
+}
 
 function App() {
   const [showRSVPForm, setShowRSVPForm] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [confirmationData, setConfirmationData] = useState<RSVPResponse | null>(null);
-  const [showAdmin, setShowAdmin] = useState(false);
+  const [confirmationData, setConfirmationData] = useState<GuestResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRSVPClick = () => {
     setShowRSVPForm(true);
   };
 
-  const handleRSVPSubmit = async (data: Omit<RSVPResponse, 'id' | 'qrCode' | 'createdAt' | 'updatedAt'>) => {
+  const handleRSVPSubmit = async (data: RSVPFormData) => {
     setIsLoading(true);
     setError(null);
     
@@ -46,7 +59,8 @@ function App() {
     setError(null);
   };
 
-  return (
+  // Main invitation page component
+  const InvitationPage = () => (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-yellow-50">
       {/* Floating particles animation */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -56,49 +70,42 @@ function App() {
         <div className="absolute top-1/2 right-1/3 w-2 h-2 bg-yellow-400 rounded-full animate-pulse opacity-30" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Admin Toggle */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={() => setShowAdmin(!showAdmin)}
-          className="bg-white/90 backdrop-blur-sm text-purple-600 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-purple-200"
-        >
-          {showAdmin ? 'Voir l\'invitation' : 'Admin Dashboard'}
-        </button>
-      </div>
-
       <div className="container mx-auto px-4 py-8 relative z-10">
-        {showAdmin ? (
-          <AdminDashboard />
-        ) : (
-          <>
-            {!showRSVPForm && !showConfirmation && (
-              <InvitationCard 
-              invitation={invitationDetails} 
-                onRSVPClick={handleRSVPClick}
-              />
-            )}
+        {!showRSVPForm && !showConfirmation && (
+          <InvitationCard 
+            details={invitationDetails} 
+            onRSVPClick={handleRSVPClick}
+          />
+        )}
 
-            {showRSVPForm && (
-              <div className="max-w-2xl mx-auto">
-                <RSVPForm 
-                  onSubmit={handleRSVPSubmit}
-                  onBack={handleBackToInvitation}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              </div>
-            )}
+        {showRSVPForm && (
+          <div className="max-w-2xl mx-auto">
+            <RSVPForm 
+              onSubmit={handleRSVPSubmit}
+              onClose={handleBackToInvitation}
+              isVisible={true}
+              loading={isLoading}
+            />
+          </div>
+        )}
 
-            {showConfirmation && confirmationData && (
-              <ConfirmationModal
-                response={confirmationData}
-                onClose={handleCloseConfirmation}
-              />
-            )}
-          </>
+        {showConfirmation && confirmationData && (
+          <ConfirmationModal
+            response={confirmationData}
+            onClose={handleCloseConfirmation}
+            isVisible={showConfirmation}
+          />
         )}
       </div>
     </div>
+  );
+
+  return (
+    <Routes>
+      <Route path="/" element={<InvitationPage />} />
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/qr-scanner" element={<QRScanner />} />
+    </Routes>
   );
 }
 

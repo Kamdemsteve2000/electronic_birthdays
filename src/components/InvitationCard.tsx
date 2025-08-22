@@ -16,7 +16,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
         <div className="relative z-10">
           <div className="text-6xl mb-4">🎉</div>
           <h1 className="text-4xl font-bold mb-2">{details.title}</h1>
-          <p className="text-xl opacity-90">Hosted by {details.hostName}</p>
+          <p className="text-xl opacity-90">Organise par {details.hostName}</p>
         </div>
         <div className="absolute -top-4 -right-4 w-24 h-24 bg-white bg-opacity-10 rounded-full"></div>
         <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-white bg-opacity-5 rounded-full"></div>
@@ -37,7 +37,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
             <div className="flex items-center space-x-3 p-3 bg-white rounded-xl shadow-sm">
               <Clock className="text-purple-600 w-5 h-5" />
               <div>
-                <p className="font-semibold text-gray-800">Time</p>
+                <p className="font-semibold text-gray-800">Heure</p>
                 <p className="text-gray-600">{details.time}</p>
               </div>
             </div>
@@ -45,7 +45,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
             <div className="flex items-start space-x-3 p-3 bg-white rounded-xl shadow-sm">
               <MapPin className="text-purple-600 w-5 h-5 mt-0.5" />
               <div>
-                <p className="font-semibold text-gray-800">{details.venue}</p>
+                <p className="font-semibold text-gray-800">Address</p>
                 <p className="text-gray-600">{details.address}</p>
               </div>
             </div>
@@ -65,7 +65,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
             <div className="flex items-center space-x-3 p-3 bg-white rounded-xl shadow-sm">
               <Utensils className="text-purple-600 w-5 h-5" />
               <div>
-                <p className="font-semibold text-gray-800">Food</p>
+                <p className="font-semibold text-gray-800">Repas</p>
                 <p className="text-gray-600">{details.foodArrangement}</p>
               </div>
             </div>
@@ -73,7 +73,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
             <div className="flex items-center space-x-3 p-3 bg-white rounded-xl shadow-sm">
               <Wine className="text-purple-600 w-5 h-5" />
               <div>
-                <p className="font-semibold text-gray-800">Drinks</p>
+                <p className="font-semibold text-gray-800">Boissons</p>
                 <p className="text-gray-600">{details.drinkArrangement}</p>
               </div>
             </div>
@@ -88,21 +88,28 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
           </div>
           <div className="flex items-center space-x-3">
             <Phone className="text-gray-600 w-4 h-4" />
-            <span className="text-sm"><strong>Emergency Contact:</strong> {details.emergencyContact}</span>
+            <span className="text-sm"><strong>Contact d'urgence:</strong> {details.emergencyContact}</span>
           </div>
         </div>
 
         {/* RSVP Section */}
-        <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6 text-center">
+        <div className="bg-gradient-celebration rounded-lg p-4 text-center animate-sparkle">
           <Users className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 mb-2">RSVP Required</h3>
-          <p className="text-gray-600 mb-4">Please confirm your attendance before {details.rsvpDeadline}</p>
+          <h3 className="text-xl font-bold text-gray-800 mb-2"> Confirmation obligatoire </h3>
+          <p className="text-gray-600 mb-4">Veuillez confirmer votre présence avant le {details.rsvpDeadline}</p>
           <button
             onClick={onRSVPClick}
             className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
           >
-            RSVP Now
+            Répondre à l'invitation
           </button>
+        </div>
+
+        <div className="text-center pt-4">
+          <p className="text-lg font-medium text-foreground">
+            J'ai hâte de célébrer cette journée spéciale avec vous !
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">— {details.hostName}</p>
         </div>
 
         {/* Contact Info */}
@@ -116,6 +123,14 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({ details, onRSVPC
             <span>{details.hostPhone}</span>
           </div>
         </div>
+         <footer className="bg-muted/30 py-6 mt-16">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-muted-foreground text-sm">
+           App créée par ❤️<a href="mailto:kamdemherman9@gmail.com" target="_blank" rel="noopener noreferrer">Herman Steve</a>
+          </p>
+        </div>
+        
+      </footer>
       </div>
     </div>
   );
