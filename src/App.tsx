@@ -10,16 +10,6 @@ import { invitationDetails } from './data/invitationData';
 import { GuestResponse } from './types/invitation';
 import { RSVPService } from './services/rsvpService';
 
-interface RSVPFormData {
-  name: string;
-  email: string;
-  phone: string;
-  attending: boolean;
-  numberOfGuests: number;
-  dietaryRestrictions: string;
-  message: string;
-}
-
 function App() {
   const [showRSVPForm, setShowRSVPForm] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -97,6 +87,7 @@ function App() {
           />
         )}
       </div>
+
     </div>
   );
 
@@ -110,3 +101,21 @@ function App() {
 }
 
 export default App;
+
+// (Removed duplicate GuestResponse interface, using imported type instead)
+
+// Define RSVPFormData type
+export interface RSVPFormData {
+  name: string;
+  attending: boolean;
+  guests: number;
+  message?: string;
+}
+
+// Define RSVPFormProps type
+export interface RSVPFormProps {
+  onSubmit: (data: RSVPFormData) => void | Promise<void>;
+  onClose: () => void;
+  isVisible: boolean;
+  loading?: boolean;
+}
