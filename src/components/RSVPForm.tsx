@@ -52,8 +52,8 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
           </button>
           <div className="text-center">
             <div className="text-4xl mb-2">🎊</div>
-            <h2 className="text-2xl font-bold">RSVP</h2>
-            <p className="opacity-90">Let us know if you can make it!</p>
+            <h2 className="text-2xl font-bold">Confirmation de Présence</h2>
+            <p className="opacity-90">Merci de remplir ce formulaire</p>
           </div>
         </div>
 
@@ -64,15 +64,15 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
           <div className="space-y-4">
             <h3 className="font-semibold text-gray-800 flex items-center space-x-2">
               <Users className="w-5 h-5" />
-              <span>Your Information</span>
+              <span>Vos Informations</span>
             </h3>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Nom Complet *</label>
               <input
-                {...register('name', { required: 'Name is required' })}
+                {...register('name', { required: 'Nom est requis' })}
                 className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                placeholder="Your full name"
+                placeholder="Votre nom complet"
               />
               {errors.name && (
                 <p className="text-red-500 text-sm mt-1 flex items-center space-x-1">
@@ -83,13 +83,13 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email (optionnel)</label>
               <input
                 {...register('email', { 
-                  required: 'Email is required',
+                  // required: 'Email is required',
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Please enter a valid email address'
+                    message: 'Veuillez entrer une adresse e-mail valide'
                   }
                 })}
                 type="email"
@@ -105,12 +105,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Téléphone *</label>
               <input
-                {...register('phone', { required: 'Phone number is required' })}
+                {...register('phone', { required: 'Le numéro de téléphone est requis' })}
                 type="tel"
                 className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                placeholder="+1 (555) 123-4567"
+                placeholder="(+237)1234567"
               />
               {errors.phone && (
                 <p className="text-red-500 text-sm mt-1 flex items-center space-x-1">
@@ -123,7 +123,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
 
           {/* Attendance */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-gray-800">Will you be attending?</h3>
+            <h3 className="font-semibold text-gray-800">Confirmez-vous votre présence ? *</h3>
             <div className="space-y-3">
               <label className="flex items-center space-x-3 p-3 border-2 border-green-200 rounded-xl cursor-pointer hover:bg-green-50 transition-colors">
                 <input
@@ -133,7 +133,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
                   className="text-green-600 focus:ring-green-500"
                 />
                 <span className="text-2xl">✅</span>
-                <span className="font-medium text-gray-800">Yes, I'll be there!</span>
+                <span className="font-medium text-gray-800">Oui, je serai présent(e) </span>
               </label>
               <label className="flex items-center space-x-3 p-3 border-2 border-red-200 rounded-xl cursor-pointer hover:bg-red-50 transition-colors">
                 <input
@@ -143,7 +143,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
                   className="text-red-600 focus:ring-red-500"
                 />
                 <span className="text-2xl">❌</span>
-                <span className="font-medium text-gray-800">Sorry, I can't make it</span>
+                <span className="font-medium text-gray-800">Non, je ne peux pas venir</span>
               </label>
             </div>
           </div>
@@ -152,13 +152,13 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
           <div className="space-y-4 animate-in slide-in-from-top-4 duration-300">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Number of Guests (including yourself)
+                Nombre de personnes * (y compris vous-même)
               </label>
               <input
-                {...register('numberOfGuests', { 
-                  required: isAttending ? 'Number of guests is required' : false,
-                  min: { value: 1, message: 'At least 1 guest required' },
-                  max: { value: 10, message: 'Maximum 10 guests allowed' }
+                {...register('numberOfGuests', {
+                  required: isAttending ? 'Le nombre de personnes est requis' : false,
+                  min: { value: 1, message: 'Au moins 1 invité requis' },
+                  max: { value: 10, message: 'Maximum 10 invités autorisés' }
                 })}
                 type="number"
                 min="1"
@@ -178,7 +178,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Dietary Restrictions or Allergies
+                Allergies / Régimes spéciaux
               </label>
               <textarea
                 {...register('dietaryRestrictions')}
@@ -187,7 +187,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
                   !isAttending ? "bg-gray-100 cursor-not-allowed" : ""
                 }`}
                 rows={3}
-                placeholder="Any food allergies or dietary requirements..."
+                placeholder="Végétarien, sans gluten, allergies..."
               />
             </div>
           </div>
@@ -196,13 +196,13 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center space-x-2">
               <MessageSquare className="w-4 h-4" />
-              <span>Message for the Host (Optional)</span>
+              <span>Message (optionnel)</span>
             </label>
             <textarea
               {...register('message')}
               className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all resize-none"
               rows={3}
-              placeholder="Leave a birthday message or any questions..."
+              placeholder="Un petit mot pour l'hôte..."
             />
           </div>
 
@@ -215,10 +215,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onSubmit, onClose, isVisible
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>Saving...</span>
+                <span>Enregistrement...</span>
               </div>
             ) : (
-              isAttending ? '🎉 Confirm My Attendance' : '😔 Send My Regrets'
+              isAttending ? '🎉 Confirmer ma présence' : '😔 Envoyer mes regrets'
             )}
           </button>
         </form>
